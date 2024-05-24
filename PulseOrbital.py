@@ -11,8 +11,8 @@ container.write("Note: Fetch the maximum desired cloud coverage based on latitud
 
 with st.form("required_data"):
     input_cloudiness = st.number_input("Cloudiness",placeholder="Insert maximum required cloud coverage (%)",min_value=0,max_value=100,step=1)
-    input_longitude = st.number_input("Longitude",min_value=-180.0,max_value=180.0,step=0.000001,format="%.7f")
-    input_latitude = st.number_input("Latitude",min_value=-90.0,max_value=90.0,step=0.0000001,format="%.7f")
+    input_longitude = st.number_input("Longitude",min_value=-180.0,max_value=180.0,step=0.000001,format="%.2f")
+    input_latitude = st.number_input("Latitude",min_value=-90.0,max_value=90.0,step=0.0000001,format="%.2f")
     st.form_submit_button('Submit')
 
 web_response = requests.get("https://api.openweathermap.org/data/2.5/forecast?lat="+str(input_latitude)+"&lon="+str(input_longitude)+"&appid=6ee9587e880bd7100185d0f840b6fb8e")
