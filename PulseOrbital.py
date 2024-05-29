@@ -10,7 +10,7 @@ container.header("PulseOrbital")
 container.write("Note: Fetch the maximum desired cloud coverage based on latitude and longitude. Enter the details and submit form to obtain the result.")
 
 with st.form("required_data"):
-    input_cloudiness = st.number_input("Cloudiness",placeholder="Insert maximum required cloud coverage (%)",min_value=0,max_value=100,step=1)
+    input_cloudiness = st.slider("Cloudiness",min_value=0,max_value=100)
     input_longitude = st.number_input("Longitude",min_value=-180.0,max_value=180.0,step=0.000001,format="%.2f",value=0.0)
     input_latitude = st.number_input("Latitude",min_value=-90.0,max_value=90.0,step=0.0000001,format="%.2f",value=0.0)
     st.form_submit_button('Submit')
@@ -36,7 +36,15 @@ data_df = pd.DataFrame(
     }
 )
 
-st.dataframe(
+df = pd.DataFrame({
+    "col1": [input_latitude],
+    "col2": [input_longitude]
+})
+
+col1, col2 = st.columns([3, 5])
+
+with col1:
+   st.dataframe(
     data_df,
     column_config={
         "Date/Time": st.column_config.DatetimeColumn(
@@ -48,5 +56,6 @@ st.dataframe(
     },
     hide_index=True,
 )
-
-    
+   
+with col2:
+    st.map(df,latitude='col1', longitude='col2',zoom=2)
